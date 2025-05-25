@@ -2,10 +2,7 @@ package pl.wsb.fitnesstracker.user.api;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -30,6 +27,7 @@ public class User {
     @Column(name = "birthdate", nullable = false)
     private LocalDate birthdate;
 
+    @Setter
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -43,6 +41,10 @@ public class User {
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.email = email;
+    }
+
+    public void setId(@Nullable Long id) {
+        this.id = id;
     }
 
 }

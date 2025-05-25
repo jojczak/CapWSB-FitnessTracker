@@ -7,6 +7,7 @@ import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserProvider;
 import pl.wsb.fitnesstracker.user.api.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +19,18 @@ class UserServiceImpl implements UserService, UserProvider {
     private final UserRepository userRepository;
 
     @Override
-    public User createUser(final User user) {
+    public void createUser(final User user) {
         log.info("Creating User {}", user);
         if (user.getId() != null) {
             throw new IllegalArgumentException("User has already DB ID, update is not permitted!");
         }
-        return userRepository.save(user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeUser(final Long userId) {
+        log.info("Removing User with id {}", userId);
+        userRepository.deleteById(userId);
     }
 
     @Override
@@ -41,4 +48,31 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    @Override
+    public List<User> searchUsers(String text) {
+        log.info("Searching users with text {}", text);
+        return userRepository.search(text);
+    }
+
+    @Override
+    public List<User> findOlderThan(LocalDate date) {
+        log.info("Finding users older than date {}", date);
+        return userRepository.findOlderThan(date);
+    }
+
+    @Override
+    public void updateUser(final Long userId, final User updatedUser) {
+        log.info("Updating User with id {} with data {}", userId, updatedUser);
+        userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        User userToUpdate = new User(
+                updatedUser.getFirstName(),
+                updatedUser.getLastName(),
+                updatedUser.getBirthdate(),
+                updatedUser.getEmail()
+        );
+        userToUpdate.setId(userId);
+        userRepository.save(userToUpdate);
+    }
 }

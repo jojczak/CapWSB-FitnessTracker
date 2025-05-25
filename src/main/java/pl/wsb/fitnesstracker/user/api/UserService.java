@@ -6,6 +6,22 @@ package pl.wsb.fitnesstracker.user.api;
  */
 public interface UserService {
 
-    User createUser(User user);
+    /**
+     * Creates a new user.
+     * @param user The user to be created
+     */
+    void createUser(User user);
 
+    /**
+     * Removes the user with the given ID.
+     * @param userId The ID of the user to be removed
+     */
+    void removeUser(Long userId);
+
+    /**
+     * Updates the given user.
+     * @param userId The ID of the user to be updated
+     * @param user The updated user
+     */
+    void updateUser(Long userId, User user);
 }

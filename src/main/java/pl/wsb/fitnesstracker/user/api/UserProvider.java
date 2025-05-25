@@ -1,5 +1,6 @@
 package pl.wsb.fitnesstracker.user.api;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,4 +31,19 @@ public interface UserProvider {
      */
     List<User> findAllUsers();
 
+    /**
+     * Retrieves all users whose name or surname contains the given text.
+     *
+     * @param text The text to be searched
+     * @return A list of users whose name or surname contains the given text
+     */
+    List<User> searchUsers(String text);
+
+    /**
+     * Retrieves all users whose birthdate is before the given date.
+     *
+     * @param date
+     * @return
+     */
+    List<User> findOlderThan(LocalDate date);
 }
