@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.wsb.fitnesstracker.training.internal.TrainingServiceImpl;
+import pl.wsb.fitnesstracker.training.api.TrainingService;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import java.util.List;
 class UserController {
 
     private final UserServiceImpl userService;
-    private final TrainingServiceImpl trainingService;
+    private final TrainingService trainingService;
 
     private final UserMapper userMapper;
 
